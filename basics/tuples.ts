@@ -8,6 +8,7 @@ interface PersonI {
     desc: string;
   };
 }
+
 const Person: {
   name: string;
   age: number;
