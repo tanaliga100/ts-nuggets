@@ -1,0 +1,19 @@
+{
+  "name": "typescript-nuggets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanaliga100/understanding-ts.git"
+  },
+  "author": "jordan100",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanaliga100/understanding-ts/issues"
+  },
+  "homepage": "https://github.com/tanaliga100/understanding-ts#readme"
+}
