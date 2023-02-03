@@ -1,29 +1,41 @@
-// GENERICS IN FUNCTIONS
-console.log("GENERICS IN FUNCTIONS");
+console.log("GENERICS CLASSES");
+// GENERICS CLASSES
 
-function merge<T extends {}, U extends {} | number | number[]>(
-  obj1: T,
-  obj2: U
-) {
-  return Object.assign(obj1, obj2);
-}
-const res = merge({ name: "lara", gender: "Male", isStudent: true }, 212);
-const res2 = merge({ name: "dan" }, [12, 31]);
-console.log(res);
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+  constructor() {}
 
-// EXAMPLES
-interface Lengthy {
-  length: number;
-}
-function countAndDescribe<T extends Lengthy>(el: T): [T, string] {
-  let descText = "got no value";
-
-  if (el.length === 1) {
-    descText = `got 1 element`;
-  } else if (el.length > 1) {
-    descText = `got ${el.length} elements`;
+  addItem(item: T) {
+    this.data.push(item);
   }
-  return [el, descText];
+  removeItem(item: T) {
+    if (this.data.indexOf(item) === -1) {
+      return "No data with this item";
+    } else {
+      this.data.splice(this.data.indexOf(item), 1);
+    }
+  }
+  getItems() {
+    return [...this.data];
+  }
 }
-const result = countAndDescribe([]);
-console.log(result);
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("shoes");
+textStorage.addItem("bags");
+textStorage.removeItem("shoes");
+console.log(textStorage);
+
+const numberStorage = new DataStorage<number | string>();
+numberStorage.addItem(212);
+numberStorage.addItem(123);
+numberStorage.addItem("asdasd");
+
+numberStorage.removeItem(123);
+console.log(numberStorage.getItems());
+
+// const objectStorage = new DataStorage<object>();
+// objectStorage.addItem({ name: "lara" });
+// objectStorage.addItem({ name: "dan" });
+// objectStorage.removeItem({ name: "inna" });
+// console.log("objRem", objectStorage.getItems());
