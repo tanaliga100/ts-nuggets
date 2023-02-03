@@ -27,6 +27,7 @@ var Department = /** @class */ (function () {
     Department.prototype.printEmpInformation = function () {
         console.log(this.employees);
     };
+    Department.fiscalYear = 2020;
     return Department;
 }());
 var IT = /** @class */ (function (_super) {
@@ -49,29 +50,67 @@ var HR = /** @class */ (function (_super) {
         _this.admins = adm;
         _this.employees = emp;
         _this.reports = reps;
+        _this.lastRep = reps[reps.length - 1];
         return _this;
     }
+    Object.defineProperty(HR.prototype, "mostRecent", {
+        // GETTERS
+        get: function () {
+            if (this.lastRep) {
+                return this.lastRep;
+            }
+            throw new Error("No report found");
+        },
+        set: function (val) {
+            if (!val) {
+                throw new Error("No report Found");
+            }
+            this.lastRep = val;
+        },
+        enumerable: false,
+        configurable: true
+    });
     HR.prototype.addEmployee = function (emp) {
         this.employees.push(emp);
     };
     HR.prototype.addreports = function (text) {
-        this.reports = text;
+        var _a;
+        (_a = this.reports) === null || _a === void 0 ? void 0 : _a.push(text);
+        this.lastRep = text;
     };
     return HR;
 }(Department));
-// ACCOUNTING
-var acc = new Department("1", "ADMIN");
-acc.addEmployee("Lara");
-acc.addEmployee("Jordan");
-acc.describe();
-acc.printEmpInformation();
+// BASE
+var base = new Department("1", "ADMIN");
+base.addEmployee("Lara");
+base.addEmployee("Jordan");
+base.describe();
+base.printEmpInformation();
 // IT
 var it = new IT("1", ["maris", "glad"], ["chris", "will", "guy"]);
 // HUMAN RESOURCE
-var hr = new HR("1", ["dale", "bok"], ["soy"], {
-    title: "Something went wrong",
-    body: "Will surely be okay tomorrow",
-});
-console.log("BASE", acc);
+var hr = new HR("1", ["dale", "bok"], ["soy"], [
+    {
+        title: "First report",
+        body: "Will surely be okay tomorrow",
+    },
+    {
+        title: "An Error Occured",
+        body: "Will surely be okay ",
+    },
+    {
+        title: "This is most recent report",
+        body: "Will surely be okay ",
+    },
+    {
+        title: "Kimmy is not what im looking for at this moment",
+        body: "We'll surely be okay ",
+    },
+]);
+hr.mostRecent = {
+    title: "this is prob the last report",
+    body: "yes this is the last report",
+};
+console.log("BASE_CLASS", base);
 console.log("IT", it);
 console.log("HR", hr);
